@@ -346,11 +346,11 @@
         #endregion
         private System.Windows.Forms.BindingSource productoBindingSource;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        public System.Windows.Forms.TextBox txtPoducto;
+        private System.Windows.Forms.TextBox txtPoducto;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox txtDetalles;
-        public System.Windows.Forms.TextBox txtMonto;
+        private System.Windows.Forms.TextBox txtDetalles;
+        private System.Windows.Forms.TextBox txtMonto;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnModificar;
