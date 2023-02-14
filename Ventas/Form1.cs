@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 
 namespace Ventas
 {
@@ -17,7 +18,7 @@ namespace Ventas
         public Form1()
         {
             InitializeComponent();
-          
+
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -35,7 +36,7 @@ namespace Ventas
                     string productos = txtPoducto.Text;
                     string detalles = txtDetalles.Text;
                     int monto = int.Parse(txtMonto.Text);
-                    
+
 
                     comand.Parameters.AddWithValue("@producto", productos);
                     comand.Parameters.AddWithValue("@detalles", detalles);
@@ -45,11 +46,11 @@ namespace Ventas
                 }
 
             }
-                cargar();
+            cargar();
 
 
         }
-        
+
         private void conectar()
         {
             Funciones_base_de_datos coneccion = new Funciones_base_de_datos();
@@ -71,7 +72,7 @@ namespace Ventas
         private void Form1_Load(object sender, EventArgs e)
         {
             cargar();
-                        
+
         }
 
         private void cargar()
@@ -94,14 +95,14 @@ namespace Ventas
                     }
                     break;
                 case 2:
-                    textoBoton= 2;
+                    textoBoton = 2;
                     {
                         btnAtras.Text = "Desde 26 a ";
                     }
                     break;
-                    
+
             }
-            
+
 
         }
 
@@ -131,12 +132,36 @@ namespace Ventas
 
         private void dataGridProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-            
+
+
             txtIDreferencia.Text = dataGridProductos.SelectedCells[0].Value.ToString();
             txtPoducto.Text = dataGridProductos.SelectedCells[1].Value.ToString();
             txtDetalles.Text = dataGridProductos.SelectedCells[2].Value.ToString();
             txtMonto.Text = dataGridProductos.SelectedCells[3].Value.ToString();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            using (SqlConnection connection = new SqlConnection(Funciones_base_de_datos.datosDeConeccion))
+            {
+                connection.Open();
+
+                int id = int.Parse(txtIDreferencia.Text);
+                string deleteSql = "DELETE FROM Producto WHERE Id = @id";
+
+                using (SqlCommand command = new SqlCommand(deleteSql, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+
+                    int rowsInserted = command.ExecuteNonQuery();
+                    MessageBox.Show("Registro Eliminado");
+
+                    cargar();
+
+                   
+                }
+            }
         }
     }
 }

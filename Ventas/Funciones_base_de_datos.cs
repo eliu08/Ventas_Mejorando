@@ -50,12 +50,13 @@ namespace Ventas
 
         public static DataTable mostrarDatosGridView()
         {
-            string consulta = "select * from Producto WHERE Id BETWEEN 1 AND 25 order by fecha Desc";
+            string consulta = "select * from Producto order by fecha Desc";
             using (SqlConnection coneccion = new SqlConnection(datosDeConeccion)) 
             {
                 SqlDataAdapter adaptador = new SqlDataAdapter(consulta, coneccion);
                 DataTable datos = new DataTable();
                 adaptador.Fill(datos);
+
 
 
                 return datos;
