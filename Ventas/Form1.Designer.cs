@@ -1,4 +1,6 @@
-﻿namespace Ventas
+﻿using System.Windows.Forms;
+
+namespace Ventas
 {
     partial class Form1
     {
@@ -29,9 +31,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.timeFinal = new System.Windows.Forms.DateTimePicker();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ventasBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.productoBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.txtPoducto = new System.Windows.Forms.TextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,7 +45,7 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtFecha = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -55,14 +58,30 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.dataGridProductos = new System.Windows.Forms.DataGridView();
-            this.btnSiguiente = new System.Windows.Forms.Button();
-            this.btnAtras = new System.Windows.Forms.Button();
             this.txtIDreferencia = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.timeInicio = new System.Windows.Forms.DateTimePicker();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.comboBoxHora = new System.Windows.Forms.ComboBox();
+            this.comboBoxMinuto = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.ventasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProductos)).BeginInit();
             this.SuspendLayout();
+            // 
+            // timeFinal
+            // 
+            this.timeFinal.ContextMenuStrip = this.contextMenuStrip1;
+            this.timeFinal.CustomFormat = "yyyy-MM-dd HH:mm";
+            this.timeFinal.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeFinal.Location = new System.Drawing.Point(911, 458);
+            this.timeFinal.Name = "timeFinal";
+            this.timeFinal.Size = new System.Drawing.Size(200, 22);
+            this.timeFinal.TabIndex = 30;
+            this.timeFinal.Value = new System.DateTime(2023, 2, 14, 0, 0, 0, 0);
+            this.timeFinal.ValueChanged += new System.EventHandler(this.timeFinal_ValueChanged);
             // 
             // contextMenuStrip1
             // 
@@ -156,12 +175,12 @@
             this.label4.TabIndex = 12;
             this.label4.Text = "Monto";
             // 
-            // textBox1
+            // txtFecha
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 307);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(137, 20);
-            this.textBox1.TabIndex = 11;
+            this.txtFecha.Location = new System.Drawing.Point(12, 307);
+            this.txtFecha.Name = "txtFecha";
+            this.txtFecha.Size = new System.Drawing.Size(137, 20);
+            this.txtFecha.TabIndex = 11;
             // 
             // label5
             // 
@@ -263,26 +282,6 @@
             this.dataGridProductos.TabIndex = 24;
             this.dataGridProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridProductos_CellClick);
             // 
-            // btnSiguiente
-            // 
-            this.btnSiguiente.Location = new System.Drawing.Point(826, 444);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(133, 42);
-            this.btnSiguiente.TabIndex = 25;
-            this.btnSiguiente.Text = "Siguiente";
-            this.btnSiguiente.UseVisualStyleBackColor = true;
-            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
-            // 
-            // btnAtras
-            // 
-            this.btnAtras.Location = new System.Drawing.Point(687, 444);
-            this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(133, 42);
-            this.btnAtras.TabIndex = 26;
-            this.btnAtras.Text = "Atras";
-            this.btnAtras.UseVisualStyleBackColor = true;
-            this.btnAtras.Click += new System.EventHandler(this.btnAtras_Click);
-            // 
             // txtIDreferencia
             // 
             this.txtIDreferencia.Location = new System.Drawing.Point(423, 144);
@@ -300,15 +299,146 @@
             this.label10.TabIndex = 28;
             this.label10.Text = "ID Referencia";
             // 
+            // timeInicio
+            // 
+            this.timeInicio.CustomFormat = "";
+            this.timeInicio.Location = new System.Drawing.Point(582, 458);
+            this.timeInicio.Name = "timeInicio";
+            this.timeInicio.Size = new System.Drawing.Size(200, 20);
+            this.timeInicio.TabIndex = 29;
+            this.timeInicio.ValueChanged += new System.EventHandler(this.timeInicio_ValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(579, 442);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Desde";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(908, 441);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(35, 13);
+            this.label12.TabIndex = 32;
+            this.label12.Text = "Hasta";
+            // 
+            // comboBoxHora
+            // 
+            this.comboBoxHora.FormattingEnabled = true;
+            this.comboBoxHora.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "23",
+            "00"});
+            this.comboBoxHora.Location = new System.Drawing.Point(286, 181);
+            this.comboBoxHora.Name = "comboBoxHora";
+            this.comboBoxHora.Size = new System.Drawing.Size(36, 21);
+            this.comboBoxHora.TabIndex = 33;
+            // 
+            // comboBoxMinuto
+            // 
+            this.comboBoxMinuto.FormattingEnabled = true;
+            this.comboBoxMinuto.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "00"});
+            this.comboBoxMinuto.Location = new System.Drawing.Point(319, 181);
+            this.comboBoxMinuto.Name = "comboBoxMinuto";
+            this.comboBoxMinuto.Size = new System.Drawing.Size(36, 21);
+            this.comboBoxMinuto.TabIndex = 34;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1123, 490);
+            this.Controls.Add(this.comboBoxMinuto);
+            this.Controls.Add(this.comboBoxHora);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.timeFinal);
+            this.Controls.Add(this.timeInicio);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtIDreferencia);
-            this.Controls.Add(this.btnAtras);
-            this.Controls.Add(this.btnSiguiente);
             this.Controls.Add(this.dataGridProductos);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.label9);
@@ -322,7 +452,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtFecha);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.label3);
@@ -356,7 +486,7 @@
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtFecha;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label6;
@@ -370,10 +500,18 @@
         private System.Windows.Forms.BindingSource ventasBindingSource;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.DataGridView dataGridProductos;
-        private System.Windows.Forms.Button btnSiguiente;
-        private System.Windows.Forms.Button btnAtras;
-        public System.Windows.Forms.TextBox txtIDreferencia;
+        private System.Windows.Forms.TextBox txtIDreferencia;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.DateTimePicker timeInicio;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.DateTimePicker timeFinal;
+        private ComboBox comboBoxHora;
+        private ComboBox comboBoxMinuto;
+
+        public DateTimePicker TimeInicio { get => timeInicio; set => timeInicio = value; }
+        public DateTimePicker TimeFinal { get => timeFinal; set => timeFinal = value; }
     }
 }
 

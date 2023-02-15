@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Ventas
 {
@@ -27,7 +28,7 @@ namespace Ventas
 
 
 
-            using (SqlConnection coneccion = new SqlConnection(Funciones_base_de_datos.datosDeConeccion))
+            using (SqlConnection coneccion = new SqlConnection(Funciones_base_de_datos.DatosDeConeccion))
             {
                 coneccion.Open();
 
@@ -69,66 +70,22 @@ namespace Ventas
 
         }
 
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            
+
+            timeInicio.Value = DateTime.Today.AddDays(-7).AddHours(00);// Hace una semana a las 9:00 AM
+            timeFinal.Value = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59); // Hoy a las 5:00 PM;
             cargar();
-
+            comboBoxHora.SelectedIndex = 22;
+            comboBoxHora.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMinuto.SelectedIndex = 58;
+            comboBoxMinuto.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtFecha.Text = timeFinal.Value.ToString("yyyy-MM-dd");
         }
 
-        private void cargar()
-        {
-            dataGridProductos.DataSource = Funciones_base_de_datos.mostrarDatosGridView();
-        }
-
-        private void btnAtras_Click(object sender, EventArgs e)
-        {
-            byte textoBoton;
-
-            textoBoton = 1;
-
-            switch (textoBoton)
-            {
-                case 1:
-                    textoBoton = 1;
-                    {
-                        btnAtras.Text = "Desde 0 a 25";
-                    }
-                    break;
-                case 2:
-                    textoBoton = 2;
-                    {
-                        btnAtras.Text = "Desde 26 a ";
-                    }
-                    break;
-
-            }
-
-
-        }
-
-        private void btnSiguiente_Click(object sender, EventArgs e)
-        {
-            byte textoBoton;
-
-            textoBoton = 1;
-
-            switch (textoBoton)
-            {
-                case 1:
-                    textoBoton = 1;
-                    {
-                        btnAtras.Text = "Desde 0 a 25 \n Atras";
-                    }
-                    break;
-                case 2:
-                    textoBoton = 2;
-                    {
-                        btnAtras.Text = "Desde 26 a ";
-                    }
-                    break;
-
-            }
-        }
+        private void cargar() => dataGridProductos.DataSource = Funciones_base_de_datos.mostrarDatosGridView();
 
         private void dataGridProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -142,7 +99,7 @@ namespace Ventas
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Funciones_base_de_datos.datosDeConeccion))
+            using (SqlConnection connection = new SqlConnection(Funciones_base_de_datos.DatosDeConeccion))
             {
                 connection.Open();
 
@@ -159,9 +116,20 @@ namespace Ventas
 
                     cargar();
 
-                   
+
                 }
             }
+        }
+
+        private void timeInicio_ValueChanged(object sender, EventArgs e)
+        {
+            cargar();
+        }
+
+        private void timeFinal_ValueChanged(object sender, EventArgs e)
+        {
+            txtFecha.Text = timeFinal.Value.ToString("yyyy-MM-dd");
+            cargar();
         }
     }
 }
