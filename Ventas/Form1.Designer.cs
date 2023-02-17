@@ -45,7 +45,6 @@ namespace Ventas
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.txtFecha = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -64,8 +63,13 @@ namespace Ventas
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.comboBoxHora = new System.Windows.Forms.ComboBox();
-            this.comboBoxMinuto = new System.Windows.Forms.ComboBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBoxMinutoInicio = new System.Windows.Forms.ComboBox();
+            this.comboBoxHoraInicio = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBoxMinutoFinal = new System.Windows.Forms.ComboBox();
+            this.comboBoxHoraFinal = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ventasBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridProductos)).BeginInit();
@@ -76,7 +80,7 @@ namespace Ventas
             this.timeFinal.ContextMenuStrip = this.contextMenuStrip1;
             this.timeFinal.CustomFormat = "yyyy-MM-dd HH:mm";
             this.timeFinal.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeFinal.Location = new System.Drawing.Point(911, 458);
+            this.timeFinal.Location = new System.Drawing.Point(911, 457);
             this.timeFinal.Name = "timeFinal";
             this.timeFinal.Size = new System.Drawing.Size(200, 22);
             this.timeFinal.TabIndex = 30;
@@ -175,13 +179,6 @@ namespace Ventas
             this.label4.TabIndex = 12;
             this.label4.Text = "Monto";
             // 
-            // txtFecha
-            // 
-            this.txtFecha.Location = new System.Drawing.Point(12, 307);
-            this.txtFecha.Name = "txtFecha";
-            this.txtFecha.Size = new System.Drawing.Size(137, 20);
-            this.txtFecha.TabIndex = 11;
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -278,7 +275,7 @@ namespace Ventas
             this.dataGridProductos.Name = "dataGridProductos";
             this.dataGridProductos.ReadOnly = true;
             this.dataGridProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridProductos.Size = new System.Drawing.Size(529, 425);
+            this.dataGridProductos.Size = new System.Drawing.Size(604, 425);
             this.dataGridProductos.TabIndex = 24;
             this.dataGridProductos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridProductos_CellClick);
             // 
@@ -326,42 +323,19 @@ namespace Ventas
             this.label12.TabIndex = 32;
             this.label12.Text = "Hasta";
             // 
-            // comboBoxHora
+            // label14
             // 
-            this.comboBoxHora.FormattingEnabled = true;
-            this.comboBoxHora.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "23",
-            "00"});
-            this.comboBoxHora.Location = new System.Drawing.Point(286, 181);
-            this.comboBoxHora.Name = "comboBoxHora";
-            this.comboBoxHora.Size = new System.Drawing.Size(36, 21);
-            this.comboBoxHora.TabIndex = 33;
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(783, 441);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(76, 13);
+            this.label14.TabIndex = 38;
+            this.label14.Text = "Hora : Minutos";
             // 
-            // comboBoxMinuto
+            // comboBoxMinutoInicio
             // 
-            this.comboBoxMinuto.FormattingEnabled = true;
-            this.comboBoxMinuto.Items.AddRange(new object[] {
+            this.comboBoxMinutoInicio.FormattingEnabled = true;
+            this.comboBoxMinutoInicio.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
@@ -421,18 +395,172 @@ namespace Ventas
             "58",
             "59",
             "00"});
-            this.comboBoxMinuto.Location = new System.Drawing.Point(319, 181);
-            this.comboBoxMinuto.Name = "comboBoxMinuto";
-            this.comboBoxMinuto.Size = new System.Drawing.Size(36, 21);
-            this.comboBoxMinuto.TabIndex = 34;
+            this.comboBoxMinutoInicio.Location = new System.Drawing.Point(819, 457);
+            this.comboBoxMinutoInicio.Name = "comboBoxMinutoInicio";
+            this.comboBoxMinutoInicio.Size = new System.Drawing.Size(36, 21);
+            this.comboBoxMinutoInicio.TabIndex = 37;
+            // 
+            // comboBoxHoraInicio
+            // 
+            this.comboBoxHoraInicio.FormattingEnabled = true;
+            this.comboBoxHoraInicio.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "23",
+            "00"});
+            this.comboBoxHoraInicio.Location = new System.Drawing.Point(786, 457);
+            this.comboBoxHoraInicio.Name = "comboBoxHoraInicio";
+            this.comboBoxHoraInicio.Size = new System.Drawing.Size(36, 21);
+            this.comboBoxHoraInicio.TabIndex = 36;
+            this.comboBoxHoraInicio.SelectedValueChanged += new System.EventHandler(this.comboBoxHoraInicio_SelectedValueChanged);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1114, 442);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(76, 13);
+            this.label15.TabIndex = 41;
+            this.label15.Text = "Hora : Minutos";
+            // 
+            // comboBoxMinutoFinal
+            // 
+            this.comboBoxMinutoFinal.FormattingEnabled = true;
+            this.comboBoxMinutoFinal.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31",
+            "32",
+            "33",
+            "34",
+            "35",
+            "36",
+            "37",
+            "38",
+            "39",
+            "40",
+            "41",
+            "42",
+            "43",
+            "44",
+            "45",
+            "46",
+            "47",
+            "48",
+            "49",
+            "50",
+            "51",
+            "52",
+            "53",
+            "54",
+            "55",
+            "56",
+            "57",
+            "58",
+            "59",
+            "00"});
+            this.comboBoxMinutoFinal.Location = new System.Drawing.Point(1150, 458);
+            this.comboBoxMinutoFinal.Name = "comboBoxMinutoFinal";
+            this.comboBoxMinutoFinal.Size = new System.Drawing.Size(36, 21);
+            this.comboBoxMinutoFinal.TabIndex = 40;
+            // 
+            // comboBoxHoraFinal
+            // 
+            this.comboBoxHoraFinal.FormattingEnabled = true;
+            this.comboBoxHoraFinal.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "23",
+            "00"});
+            this.comboBoxHoraFinal.Location = new System.Drawing.Point(1117, 458);
+            this.comboBoxHoraFinal.Name = "comboBoxHoraFinal";
+            this.comboBoxHoraFinal.Size = new System.Drawing.Size(36, 21);
+            this.comboBoxHoraFinal.TabIndex = 39;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 307);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(137, 20);
+            this.textBox1.TabIndex = 42;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1123, 490);
-            this.Controls.Add(this.comboBoxMinuto);
-            this.Controls.Add(this.comboBoxHora);
+            this.ClientSize = new System.Drawing.Size(1202, 490);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.comboBoxMinutoFinal);
+            this.Controls.Add(this.comboBoxHoraFinal);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.comboBoxMinutoInicio);
+            this.Controls.Add(this.comboBoxHoraInicio);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.timeFinal);
@@ -452,7 +580,6 @@ namespace Ventas
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtFecha);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.label3);
@@ -486,7 +613,6 @@ namespace Ventas
         private System.Windows.Forms.Button btnModificar;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtFecha;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label6;
@@ -507,8 +633,13 @@ namespace Ventas
         private System.Windows.Forms.Label label12;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DateTimePicker timeFinal;
-        private ComboBox comboBoxHora;
-        private ComboBox comboBoxMinuto;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox comboBoxMinutoInicio;
+        private System.Windows.Forms.ComboBox comboBoxHoraInicio;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox comboBoxMinutoFinal;
+        private System.Windows.Forms.ComboBox comboBoxHoraFinal;
+        private TextBox textBox1;
 
         public DateTimePicker TimeInicio { get => timeInicio; set => timeInicio = value; }
         public DateTimePicker TimeFinal { get => timeFinal; set => timeFinal = value; }

@@ -55,6 +55,8 @@ namespace Ventas
 
         public static DataTable mostrarDatosGridView()
         {
+           
+
             string consulta = "select * from Producto where Fecha between '2023-02-15 11:10:45' and '2023-02-15 11:10:48'";
 
             //"SELECT* FROM Producto order by Fecha BETWEEN @inicio AND @fin"; //  

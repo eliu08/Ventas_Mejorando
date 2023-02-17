@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +17,24 @@ namespace Ventas
     //funciones
     public partial class Form1 : Form
     {
+        private string fechaInicio = "";
+        private string horaInicio = "";
+        private string minutosInicio = "";
+        private string fechaFinal = "";
+        private string horaFinal = "";
+        private string minutosFinal = "";
+        private string combinarInicio = "";
+        private string combinarFinal = "";
+
+        public string FechaInicio { get => fechaInicio; set => fechaInicio = value; }
+        public string HoraInicio { get => horaInicio; set => horaInicio = value; }
+        public string MinutosInicio { get => minutosInicio; set => minutosInicio = value; }
+        public string FechaFinal { get => fechaFinal; set => fechaFinal = value; }
+        public string HoraFinal { get => horaFinal; set => horaFinal = value; }
+        public string MinutosFinal { get => minutosFinal; set => minutosFinal = value; }
+        public string CombinarInicio { get => combinarInicio; set => combinarInicio = value; }
+        public string CombinarFinal { get => combinarFinal; set => combinarFinal = value; }
+
         public Form1()
         {
             InitializeComponent();
@@ -73,18 +92,41 @@ namespace Ventas
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
 
             timeInicio.Value = DateTime.Today.AddDays(-7).AddHours(00);// Hace una semana a las 9:00 AM
             timeFinal.Value = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59); // Hoy a las 5:00 PM;
-            cargar();
-            comboBoxHora.SelectedIndex = 22;
-            comboBoxHora.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxMinuto.SelectedIndex = 58;
-            comboBoxMinuto.DropDownStyle = ComboBoxStyle.DropDownList;
-            txtFecha.Text = timeFinal.Value.ToString("yyyy-MM-dd");
+            
+            comboBoxHoraInicio.SelectedIndex = 22;
+            comboBoxHoraInicio.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMinutoInicio.SelectedIndex = 58;
+            comboBoxMinutoInicio.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxHoraFinal.SelectedIndex = 21;
+            comboBoxHoraFinal.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxMinutoFinal.SelectedIndex = 57;
+            comboBoxMinutoFinal.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            fechaInicio = timeInicio.Value.ToString("yyyy-MM-dd");
+            horaInicio = comboBoxHoraInicio.Text;
+            minutosInicio = comboBoxMinutoInicio.Text;
+
+            combinarInicio = $"{fechaInicio} {horaInicio}:{minutosInicio}";
+
+            fechaFinal = timeFinal.Value.ToString("yyyy-MM-dd");
+            horaFinal = comboBoxHoraFinal.Text;
+            minutosFinal = comboBoxMinutoFinal.Text;
+
+            combinarFinal = $"{fechaFinal} {horaFinal}:{minutosFinal}";
+
+            //txtDetalles.Text = combinarFinal;
+
+            textBox7.Text = combinarInicio;
+            textBox6.Text = combinarFinal;
+            //cargar();
+
         }
 
+        
         private void cargar() => dataGridProductos.DataSource = Funciones_base_de_datos.mostrarDatosGridView();
 
         private void dataGridProductos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -123,13 +165,41 @@ namespace Ventas
 
         private void timeInicio_ValueChanged(object sender, EventArgs e)
         {
+            fechaInicio = timeInicio.Value.ToString("yyyy-MM-dd");
+            
+            combinarInicio = fechaInicio + " " + horaInicio + ":" + minutosInicio;
+
+
             cargar();
         }
 
         private void timeFinal_ValueChanged(object sender, EventArgs e)
         {
-            txtFecha.Text = timeFinal.Value.ToString("yyyy-MM-dd");
+            fechaFinal = timeFinal.Value.ToString("yyyy-MM-dd");
+            
+            combinarFinal = fechaFinal + " " + horaFinal + ":" + minutosFinal;
+
+
             cargar();
         }
+
+        private void comboBoxHoraInicio_SelectedValueChanged(object sender, EventArgs e)
+        {
+            horaInicio = comboBoxHoraInicio.Text;
+
+            combinarInicio = timeInicio.Value.ToString("yyyy-MM-dd") + " " + horaInicio + ":" + minutosInicio;
+
+
+            cargar();
+        }
+
+
+
+
+
+       
+
+        
+
     }
 }
