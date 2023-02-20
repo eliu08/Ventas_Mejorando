@@ -80,9 +80,10 @@ namespace Ventas
             this.timeFinal.ContextMenuStrip = this.contextMenuStrip1;
             this.timeFinal.CustomFormat = "yyyy-MM-dd HH:mm";
             this.timeFinal.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeFinal.Location = new System.Drawing.Point(911, 457);
+            this.timeFinal.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.timeFinal.Location = new System.Drawing.Point(1004, 458);
             this.timeFinal.Name = "timeFinal";
-            this.timeFinal.Size = new System.Drawing.Size(200, 22);
+            this.timeFinal.Size = new System.Drawing.Size(94, 22);
             this.timeFinal.TabIndex = 30;
             this.timeFinal.Value = new System.DateTime(2023, 2, 14, 0, 0, 0, 0);
             this.timeFinal.ValueChanged += new System.EventHandler(this.timeFinal_ValueChanged);
@@ -299,9 +300,10 @@ namespace Ventas
             // timeInicio
             // 
             this.timeInicio.CustomFormat = "";
+            this.timeInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.timeInicio.Location = new System.Drawing.Point(582, 458);
             this.timeInicio.Name = "timeInicio";
-            this.timeInicio.Size = new System.Drawing.Size(200, 20);
+            this.timeInicio.Size = new System.Drawing.Size(102, 20);
             this.timeInicio.TabIndex = 29;
             this.timeInicio.ValueChanged += new System.EventHandler(this.timeInicio_ValueChanged);
             // 
@@ -317,7 +319,7 @@ namespace Ventas
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(908, 441);
+            this.label12.Location = new System.Drawing.Point(1001, 442);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(35, 13);
             this.label12.TabIndex = 32;
@@ -326,7 +328,7 @@ namespace Ventas
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(783, 441);
+            this.label14.Location = new System.Drawing.Point(687, 441);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(76, 13);
             this.label14.TabIndex = 38;
@@ -395,10 +397,11 @@ namespace Ventas
             "58",
             "59",
             "00"});
-            this.comboBoxMinutoInicio.Location = new System.Drawing.Point(819, 457);
+            this.comboBoxMinutoInicio.Location = new System.Drawing.Point(723, 457);
             this.comboBoxMinutoInicio.Name = "comboBoxMinutoInicio";
             this.comboBoxMinutoInicio.Size = new System.Drawing.Size(36, 21);
             this.comboBoxMinutoInicio.TabIndex = 37;
+            this.comboBoxMinutoInicio.SelectedIndexChanged += new System.EventHandler(this.comboBoxMinutoInicio_SelectedValueChanged);
             // 
             // comboBoxHoraInicio
             // 
@@ -427,7 +430,7 @@ namespace Ventas
             "21",
             "23",
             "00"});
-            this.comboBoxHoraInicio.Location = new System.Drawing.Point(786, 457);
+            this.comboBoxHoraInicio.Location = new System.Drawing.Point(690, 457);
             this.comboBoxHoraInicio.Name = "comboBoxHoraInicio";
             this.comboBoxHoraInicio.Size = new System.Drawing.Size(36, 21);
             this.comboBoxHoraInicio.TabIndex = 36;
@@ -436,7 +439,7 @@ namespace Ventas
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(1114, 442);
+            this.label15.Location = new System.Drawing.Point(1101, 442);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(76, 13);
             this.label15.TabIndex = 41;
@@ -505,10 +508,11 @@ namespace Ventas
             "58",
             "59",
             "00"});
-            this.comboBoxMinutoFinal.Location = new System.Drawing.Point(1150, 458);
+            this.comboBoxMinutoFinal.Location = new System.Drawing.Point(1137, 458);
             this.comboBoxMinutoFinal.Name = "comboBoxMinutoFinal";
             this.comboBoxMinutoFinal.Size = new System.Drawing.Size(36, 21);
             this.comboBoxMinutoFinal.TabIndex = 40;
+            this.comboBoxMinutoFinal.SelectedValueChanged += new System.EventHandler(this.comboBoxMinutoFinal_SelectedValueChanged);
             // 
             // comboBoxHoraFinal
             // 
@@ -537,10 +541,11 @@ namespace Ventas
             "21",
             "23",
             "00"});
-            this.comboBoxHoraFinal.Location = new System.Drawing.Point(1117, 458);
+            this.comboBoxHoraFinal.Location = new System.Drawing.Point(1104, 458);
             this.comboBoxHoraFinal.Name = "comboBoxHoraFinal";
             this.comboBoxHoraFinal.Size = new System.Drawing.Size(36, 21);
             this.comboBoxHoraFinal.TabIndex = 39;
+            this.comboBoxHoraFinal.SelectedValueChanged += new System.EventHandler(this.comboBoxHoraFinal_SelectedValueChanged);
             // 
             // textBox1
             // 

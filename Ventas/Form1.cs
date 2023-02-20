@@ -47,11 +47,11 @@ namespace Ventas
 
 
 
-            using (SqlConnection coneccion = new SqlConnection(Funciones_base_de_datos.DatosDeConeccion))
+            using (SqlConnection conexion = new SqlConnection(Funciones_base_de_datos.DatosDeConexion))
             {
-                coneccion.Open();
+                conexion.Open();
 
-                using (SqlCommand comand = new SqlCommand(insertSql, coneccion))
+                using (SqlCommand comand = new SqlCommand(insertSql, conexion))
                 {
                     string productos = txtPoducto.Text;
                     string detalles = txtDetalles.Text;
@@ -73,17 +73,17 @@ namespace Ventas
 
         private void conectar()
         {
-            Funciones_base_de_datos coneccion = new Funciones_base_de_datos();
+            Funciones_base_de_datos conexion = new Funciones_base_de_datos();
 
 
             try
 
             {
-                coneccion.openConection();
+                conexion.openConection();
             }
             catch (System.Data.SqlClient.SqlException)
             {
-                MessageBox.Show("No se pudo abrir la coneccion por favor intente de nuevo");
+                MessageBox.Show("No se pudo abrir la conexion por favor intente de nuevo");
 
             }
 
@@ -141,7 +141,7 @@ namespace Ventas
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(Funciones_base_de_datos.DatosDeConeccion))
+            using (SqlConnection connection = new SqlConnection(Funciones_base_de_datos.DatosDeConexion))
             {
                 connection.Open();
 
@@ -165,41 +165,83 @@ namespace Ventas
 
         private void timeInicio_ValueChanged(object sender, EventArgs e)
         {
-            fechaInicio = timeInicio.Value.ToString("yyyy-MM-dd");
-            
-            combinarInicio = fechaInicio + " " + horaInicio + ":" + minutosInicio;
-
-
-            cargar();
+            consultaTimeTabla();
         }
-
         private void timeFinal_ValueChanged(object sender, EventArgs e)
         {
-            fechaFinal = timeFinal.Value.ToString("yyyy-MM-dd");
-            
-            combinarFinal = fechaFinal + " " + horaFinal + ":" + minutosFinal;
-
-
-            cargar();
+            consultaTimeTabla();
         }
+
+
+        private void consultaTimeTabla ()
+        {
+            using (SqlConnection conexion = new SqlConnection(Funciones_base_de_datos.DatosDeConexion))
+            {
+                conexion.Open();
+                // Crear un nuevo comando SQL que llame al procedimiento almacenado
+                using (SqlCommand command = new SqlCommand("BuscarRegistrosPorFechaYHora", conexion))
+                {
+                    // Especificar que el comando es un procedimiento almacenado
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+
+
+                    int horaInicio;
+                    int minutoInicio;
+                    int horaFin;
+                    int minutoFin;
+
+
+                    horaInicio = Convert.ToInt32(comboBoxHoraInicio.SelectedItem);
+                    minutoInicio = Convert.ToInt32(comboBoxMinutoInicio.SelectedItem);
+                    horaFin = Convert.ToInt32(comboBoxHoraFinal.SelectedItem);
+                    minutoFin = Convert.ToInt32(comboBoxMinutoFinal.SelectedItem);
+                    //horaInicio = int.Parse(comboBoxHoraInicio.Text);
+                    //minutoInicio = int.Parse(comboBoxMinutoInicio.Text);
+                    //horaFin = int.Parse(comboBoxHoraFinal.Text);
+                    //minutoFin = int.Parse(comboBoxMinutoFinal.Text);
+
+                    //AddHours(int.Parse(comboBoxHoraFinal.Text)).AddMinutes(int.Parse(comboBoxMinutoFinal.Text)))
+                    // Agregar los parámetros al comando
+                    command.Parameters.AddWithValue("@fechaInicio", timeInicio.Value);
+                    command.Parameters.AddWithValue("@fechaFin", timeFinal.Value);
+                    command.Parameters.AddWithValue("@horaInicio", new TimeSpan(horaInicio, minutoInicio, 0)); // Especificar la hora de inicio que deseas buscar
+                    command.Parameters.AddWithValue("@horaFin", new TimeSpan(horaFin, minutoFin, 0)); // Especificar la hora final que deseas buscar
+
+                    // Ejecutar el comando y obtener los resultados
+                    using (SqlDataAdapter adapter = new SqlDataAdapter(command))
+                    {
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+
+                        // Asignar el objeto DataTable al DataSource del DataGridView
+                        dataGridProductos.DataSource = table;
+                    }
+                }
+            }
+
+        }
+       
 
         private void comboBoxHoraInicio_SelectedValueChanged(object sender, EventArgs e)
         {
-            horaInicio = comboBoxHoraInicio.Text;
-
-            combinarInicio = timeInicio.Value.ToString("yyyy-MM-dd") + " " + horaInicio + ":" + minutosInicio;
-
-
-            cargar();
+            consultaTimeTabla();
+        
         }
 
+        private void comboBoxMinutoInicio_SelectedValueChanged(object sender, EventArgs e)
+        {
+            consultaTimeTabla();
+        }
 
+        private void comboBoxHoraFinal_SelectedValueChanged(object sender, EventArgs e)
+        {
+            consultaTimeTabla();
+        }
 
-
-
-       
-
-        
-
+        private void comboBoxMinutoFinal_SelectedValueChanged(object sender, EventArgs e)
+        {
+            consultaTimeTabla();
+        }
     }
 }

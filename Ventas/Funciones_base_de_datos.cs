@@ -19,18 +19,18 @@ namespace Ventas
     {
         static Form1 forma = new Form1();
 
-        private static string datosDeConeccion = "server=DEV\\PRACTICA;database=Inventario_Productos;User ID=eliu;Password=0824";
+        private static string datosDeConexion = "server=DEV\\PRACTICA;database=Inventario_Productos;User ID=eliu;Password=0824";
 
-        public static string DatosDeConeccion { get => datosDeConeccion; set => datosDeConeccion = value; }
+        public static string DatosDeConexion { get => datosDeConexion; set => datosDeConexion = value; }
 
         public void openConection(string comando)
         {
 
-            using (SqlConnection coneccion = new SqlConnection(datosDeConeccion))
+            using (SqlConnection conexion = new SqlConnection(datosDeConexion))
             {
-                coneccion.Open();
+                conexion.Open();
 
-                using (SqlCommand comand = new SqlCommand(comando, coneccion))
+                using (SqlCommand comand = new SqlCommand(comando, conexion))
                 {
                                      
                                      
@@ -42,9 +42,9 @@ namespace Ventas
         public void openConection()
         {
 
-            using (SqlConnection coneccion = new SqlConnection(datosDeConeccion))
+            using (SqlConnection conexion = new SqlConnection(datosDeConexion))
             {
-                coneccion.Open();
+                conexion.Open();
                 MessageBox.Show("Conexion abierta");
 
                
@@ -57,12 +57,12 @@ namespace Ventas
         {
            
 
-            string consulta = "select * from Producto where Fecha between '2023-02-15 11:10:45' and '2023-02-15 11:10:48'";
+            string consulta = "select * from Producto";
 
             //"SELECT* FROM Producto order by Fecha BETWEEN @inicio AND @fin"; //  
-            using (SqlConnection coneccion = new SqlConnection(datosDeConeccion)) 
+            using (SqlConnection conexion = new SqlConnection(datosDeConexion)) 
             {
-                using (SqlCommand command = new SqlCommand(consulta, coneccion))
+                using (SqlCommand command = new SqlCommand(consulta, conexion))
                 {
                     // Agrega los parámetros de fecha y hora
 
@@ -78,7 +78,7 @@ namespace Ventas
                         adapter.Fill(table);
                         return table;
 
-                        //SqlDataAdapter adaptador = new SqlDataAdapter(consulta, coneccion);
+                        //SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
                         //DataTable datos = new DataTable();
                         //adaptador.Fill(datos);
 
@@ -95,7 +95,7 @@ namespace Ventas
              
             
         }
-        //string datosDeConeccion = "Data Source=DEV\\DEVELOPER;Initial Catalog=Inventario_Productos;User ID=eliu;Password=0824";
+        //string datosDeconexion = "Data Source=DEV\\DEVELOPER;Initial Catalog=Inventario_Productos;User ID=eliu;Password=0824";
 
         
     }
