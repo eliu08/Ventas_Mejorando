@@ -81,54 +81,7 @@ namespace Ventas
             txtMonto.Text = "";
             txtPoducto.Text = "";
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        private string fechaInicio = "";
-        private string horaInicio = "";
-        private string minutosInicio = "";
-        private string fechaFinal = "";
-        private string horaFinal = "";
-        private string minutosFinal = "";
-        private string combinarInicio = "";
-        private string combinarFinal = "";
-
-        public string FechaInicio { get => fechaInicio; set => fechaInicio = value; }
-        public string HoraInicio { get => horaInicio; set => horaInicio = value; }
-        public string MinutosInicio { get => minutosInicio; set => minutosInicio = value; }
-        public string FechaFinal { get => fechaFinal; set => fechaFinal = value; }
-        public string HoraFinal { get => horaFinal; set => horaFinal = value; }
-        public string MinutosFinal { get => minutosFinal; set => minutosFinal = value; }
-        public string CombinarInicio { get => combinarInicio; set => combinarInicio = value; }
-        public string CombinarFinal { get => combinarFinal; set => combinarFinal = value; }
-
-        
-
-       
-
-        
-
-       
-
-
-       
+          
 
         private void restablecerDateTimePicker()
         {
@@ -185,12 +138,12 @@ namespace Ventas
                     {
                         eliminarVariosRegistros(listaIds);
                         MessageBox.Show("Registros eliminados correctamente.");
-                        cargar();
+                        consultaTimeTabla();
                     }
                     else
                     {
                         MessageBox.Show("Debe seleccionar al menos un registro para eliminar.");
-                        cargar();
+                        consultaTimeTabla();
                     }
                 }
             }
@@ -338,7 +291,7 @@ namespace Ventas
                     comando.Parameters.AddWithValue("@NuevoMonto",monto);
                     comando.ExecuteNonQuery();
                 }
-                cargar();
+                consultaTimeTabla();
                 limpiar();
             }
 
