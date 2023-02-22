@@ -55,45 +55,48 @@ namespace Ventas
 
         public static DataTable mostrarDatosGridView()
         {
-           
 
-            string consulta = "select * from Producto";
 
-            //"SELECT* FROM Producto order by Fecha BETWEEN @inicio AND @fin"; //  
-            using (SqlConnection conexion = new SqlConnection(datosDeConexion)) 
+            using (SqlConnection conexion = new SqlConnection(Funciones_base_de_datos.DatosDeConexion))
             {
-                using (SqlCommand command = new SqlCommand(consulta, conexion))
+                conexion.Open();
+                // Crear un nuevo comando SQL que llame al procedimiento almacenado
+                using (SqlCommand command = new SqlCommand("BuscarRegistrosPorFechaYHora", conexion))
                 {
-                    // Agrega los parámetros de fecha y hora
+                    // Especificar que el comando es un procedimiento almacenado
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    
 
-                    command.Parameters.AddWithValue("@inicio", forma.TimeInicio.Value.ToString("yyyy-MM-dd"));
-                    command.Parameters.AddWithValue("@fin", forma.TimeFinal.Value.ToString("yyyy-MM-dd"));
 
-                    //Crea una instancia del objeto SqlDataAdapter y llena el DataGridView con los resultados de la consulta
+                    int horaInicio = 00;
+                    int minutoInicio = 00;
+                    int horaFin = 23;
+                    int minutoFin = 59;
+
+                    DateTimePicker fechaInicio = new DateTimePicker();
+                    DateTimePicker fechaFin = new DateTimePicker();
+                    fechaInicio.Value = DateTime.Today.AddDays(-1).AddHours(00);// Hace una semana a las 9:00 AM
+                    fechaFin.Value = DateTime.Today.AddHours(23).AddMinutes(59).AddSeconds(59); 
+
+                    command.Parameters.AddWithValue("@fechaInicio", fechaInicio.Value);
+                    command.Parameters.AddWithValue("@fechaFin", fechaFin.Value);
+                    command.Parameters.AddWithValue("@horaInicio", new TimeSpan(horaInicio, minutoInicio, 0)); 
+                    command.Parameters.AddWithValue("@horaFin", new TimeSpan(horaFin, minutoFin, 0)); 
+
+                    // Ejecutar el comando y obtener los resultados
                     using (SqlDataAdapter adapter = new SqlDataAdapter(command))
                     {
                         DataTable table = new DataTable();
                         adapter.Fill(table);
+
+                        // Asignar el objeto DataTable al DataSource del DataGridView
                         return table;
-
-                        //SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
-                        //DataTable datos = new DataTable();
-                        //adaptador.Fill(datos);
-
-
-
-                        //return datos;
-
                     }
                 }
-
-
             }
 
-             
-            
+
+
         }
         //string datosDeconexion = "Data Source=DEV\\DEVELOPER;Initial Catalog=Inventario_Productos;User ID=eliu;Password=0824";
 

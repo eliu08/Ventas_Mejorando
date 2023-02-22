@@ -160,6 +160,7 @@ namespace Ventas
             this.btnModificar.TabIndex = 9;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminar
             // 
@@ -268,6 +269,7 @@ namespace Ventas
             this.btnRefresh.TabIndex = 23;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // dataGridProductos
             // 
@@ -648,6 +650,7 @@ namespace Ventas
 
         public DateTimePicker TimeInicio { get => timeInicio; set => timeInicio = value; }
         public DateTimePicker TimeFinal { get => timeFinal; set => timeFinal = value; }
+        public DataGridView DataGridProductos { get => dataGridProductos; set => dataGridProductos = value; }
     }
 }
 
