@@ -293,6 +293,7 @@ namespace Ventas
                 }
                 consultaTimeTabla();
                 limpiar();
+
             }
 
         }
